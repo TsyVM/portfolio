@@ -77,6 +77,7 @@ I'm part of **[TeamVanilla](https://www.github.com/TeamVanillaRND)** & [@TeamVan
 ### 🧠 [NiSuite (NiTools Suite)](https://github.com/TsyVM/NiSuite)
 **Browser-based binary intelligence & architecture recovery platform**
 
+[![Version](https://img.shields.io/badge/version-V2-8A2BE2?style=for-the-badge)](#)
 [![Stars](https://img.shields.io/github/stars/TsyVM/NiSuite?style=for-the-badge&color=yellow)](https://github.com/TsyVM/NiSuite/stargazers)
 [![TeamVanilla](https://img.shields.io/badge/by-TeamVanilla-8A2BE2?style=for-the-badge)](https://www.teamvanilla.org/)
 
@@ -84,47 +85,81 @@ I'm part of **[TeamVanilla](https://www.github.com/TeamVanillaRND)** & [@TeamVan
 
 </div>
 
-A reverse-engineering platform built to sit alongside **Ghidra, IDA Pro, Binary Ninja, PE-bear, and Detect It Easy** — but focused specifically on **automated architecture recovery** rather than manual disassembly.
+Most analysis tools stop at instructions, symbols, and control flow. NiSuite goes further — recovering the **higher-level architecture** compiled out of a binary (class hierarchies, RTTI, vtables, subsystem boundaries) and surfacing it as structured, actionable knowledge, so less time goes into rebuilding context and more into generating insight.
+
+Built to sit alongside **Ghidra, IDA Pro, Binary Ninja, PE-bear, and Detect It Easy** — not a disassembler replacement, but the layer that turns their output into architecture.
 
 <table>
 <tr><td valign="top">
 
-**🔬 Binary Analysis**
-- PE parsing
-- Import / export analysis
-- Resource inspection
-- Rich header analysis
-- Compiler fingerprinting
+**📦 PE Structure**
+- Header/section walk (DOS, COFF, optional)
+- Rich header & compiler fingerprint
+- Resources, debug directory, overlay data
+- TLS callbacks, relocations, SEH tables
 
 </td><td valign="top">
 
-**🏛️ Architecture Recovery**
-- Class hierarchies
-- RTTI structures
-- VTable recovery
-- Object relationships
-- Engine subsystem mapping
+**🏛️ Reconstruction ★**
+- Architecture & class-hierarchy recovery
+- VTable analysis + slot mapping
+- Struct/type/ctor-dtor recovery
+- XRefs, per-finding confidence scoring
 
 </td><td valign="top">
 
-**🛡️ Security Analysis**
-- Entropy / packer detection
-- MITRE ATT&CK mapping
-- Threat API discovery
+**🔬 Recovery eXtensions**
+- MSVC/GCC demangling, name propagation
+- Thunk, switch-table, lambda detection
+- RTTI v2/CLI, `.pdata` unwind parsing
+- Function fingerprints, offset verification
+
+</td><td valign="top">
+
+**⚙️ Code Analysis**
+- Capstone disasm (x86/x64/ARM/MIPS, WASM)
+- Pseudo-C decompiler, interactive CFG
+- Signatures, stack frames, string xrefs
+- In-browser script console
+
+</td></tr>
+<tr><td valign="top">
+
+**🔎 Advanced RE**
+- IAT rebuild, dynamic import discovery
+- Full-binary call graph (Cytoscape/dagre)
+- Anti-analysis & syscall-table detection
+- Binary-level patch diffing, entropy analysis
+
+</td><td valign="top">
+
+**🛡️ Security**
+- Consolidated risk scoring & capability summary
 - YARA rule generation
+- IOC extraction (network, registry, file paths)
+- Packer identification & unpacking hints
 
 </td><td valign="top">
 
-**🧰 Research Tooling**
-- C++ header/SDK output
-- Ghidra & Frida export
-- Architecture reports
-- Plugin packs
+**📊 Visualization**
+- Byte-pair digram heatmap
+- Hilbert-curve entropy map
+- Function heatmaps & density views
+
+</td><td valign="top">
+
+**💾 Export & Utilities**
+- JSON / YAML / SDB export
+- Header/SDK, Frida hook, Ghidra export
+- Runtime verification harness
+- Cross-build diffing
 
 </td></tr>
 </table>
 
-Ships with a **modular plugin architecture** — custom engine signatures, RTTI databases, class definitions, and security heuristics — for reverse engineers, malware analysts, security researchers, game modders, and digital forensics analysts.
+**Analyst Query** — a context-aware Q&A panel scoped to the loaded binary: once a file is analyzed, the full static-analysis result is embedded as context, so questions resolve against actual findings rather than generic reference material. Supports multi-turn follow-ups, quick prompts, and exportable sessions.
+
+Ships with a **modular plugin architecture** — custom engine signatures, RTTI databases, class definitions, string intelligence, and security heuristics — for reverse engineers, malware analysts, security researchers, game modders, engine researchers, software archaeologists, and digital forensics analysts.
 
 <div align="center">
 
@@ -351,6 +386,13 @@ The methodology behind every project in this portfolio, distilled into a few rul
 <sub>💭 "I do not like Github."</sub>
 
 <br/><br/>
+
+<!--
+  🐍 Optional: live contribution snake animation.
+  To activate: add the Platane/snk GitHub Action to this repo (see note below),
+  then uncomment the line below.
+  <img src="https://raw.githubusercontent.com/TsyVM/TsyVM/output/github-contribution-grid-snake-dark.svg" width="100%"/>
+-->
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:00599C,100:8A2BE2&height=100&section=footer"/>
 
