@@ -47,7 +47,7 @@ I'm part of **[TeamVanilla](https://www.github.com/TeamVanillaRND)** & [@TeamVan
 
 <div align="center">
 
-<img src="https://skillicons.dev/icons?i=cpp,py,cmake,windows,linux,apple,git,github&theme=dark" />
+<img src="https://skillicons.dev/icons?i=cpp,py,cmake,windows,linux,git,github&theme=dark" />
 
 </div>
 
