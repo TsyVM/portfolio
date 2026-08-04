@@ -18,6 +18,8 @@
 [![C++23](https://img.shields.io/badge/C%2B%2B-23-00599C?style=flat-square&logo=cplusplus&logoColor=white)](https://en.cppreference.com/w/cpp/23)
 [![C++20](https://img.shields.io/badge/C%2B%2B-20-00599C?style=flat-square&logo=cplusplus&logoColor=white)](https://en.cppreference.com/w/cpp/20)
 [![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?style=flat-square&logo=python&logoColor=white)](#)
+[![PHP](https://img.shields.io/badge/PHP-Platform%20Engineering-777BB4?style=flat-square&logo=php&logoColor=white)](#)
+[![DirectX9](https://img.shields.io/badge/DirectX-9%20%7C%20Shader%20Pipelines-107C10?style=flat-square)](#)
 [![Windows](https://img.shields.io/badge/Windows-x86%20%7C%20x64-0078D6?style=flat-square&logo=windows&logoColor=white)](#)
 [![Linux](https://img.shields.io/badge/Linux-supported-FCC624?style=flat-square&logo=linux&logoColor=black)](#)
 [![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](#)
@@ -28,15 +30,16 @@
 
 ## 👋 About
 
-I build tools that pull the truth out of compiled binaries. My work centers on **native reverse engineering and architecture recovery** — reconstructing class layouts, RTTI, vtables, and function addresses directly from Windows executables, then shipping that knowledge as verified SDKs, analysis platforms, and runtime tooling.
+I build tools that pull the truth out of compiled binaries. My work centers on **native reverse engineering and architecture recovery** — reconstructing class layouts, RTTI, vtables, and function addresses directly from Windows executables, then shipping that knowledge as verified SDKs, analysis platforms, encyclopedic references, and runtime tooling.
 
-I'm part of **[TeamVanilla](https://www.github.com/TeamVanillaRND)** & [@TeamVanilla](https://www.x.com/@HomeOfVanilla), where I build both general-purpose reverse-engineering infrastructure and deep, engine-specific modding ecosystems for classic PC games.
+I'm part of **[TeamVanilla](https://www.github.com/TeamVanillaRND)** & [@TeamVanilla](https://www.x.com/@HomeOfVanilla), where I build both general-purpose reverse-engineering infrastructure and deep, engine-specific modding ecosystems for classic PC games — plus the graphics/shader research and hardened web platform work that supports them.
 
-> **My rule:** nothing ships unless it's proven. Every offset, class, or address is either read straight from compiler-emitted metadata or corroborated against disassembled machine code. No guessing.
+> **My rule:** nothing ships unless it's proven. Every offset, class, or address is either read straight from compiler-emitted metadata or corroborated against disassembled machine code. Unknowns get bounded, not guessed.
 
 ```yaml
 🔍 Currently building: NiTools Suite — automated architecture recovery for compiled binaries
 🧩 Also maintaining:    DonutsSDK, VanHooks, and modding tooling for two classic PC games
+📚 Also writing:        engine-internals encyclopedias and a DX9/HLSL rendering reference series
 💬 Ask me about:        RTTI recovery, VTable hooking, PE internals, mod loader architecture
 🐈 Status:              I do not like GitHub. (...but here we are)
 ```
@@ -47,7 +50,7 @@ I'm part of **[TeamVanilla](https://www.github.com/TeamVanillaRND)** & [@TeamVan
 
 <div align="center">
 
-<img src="https://skillicons.dev/icons?i=cpp,py,cmake,windows,linux,git,github&theme=dark" />
+<img src="https://skillicons.dev/icons?i=cpp,py,php,cmake,windows,linux,git,github&theme=dark" />
 
 </div>
 
@@ -55,10 +58,15 @@ I'm part of **[TeamVanilla](https://www.github.com/TeamVanillaRND)** & [@TeamVan
 
 | Area | Skills |
 |---|---|
-| **Reverse Engineering** | PE binary parsing · MSVC RTTI recovery · VTable / COL walking · disassembly-based verification · packer & entropy diagnostics · signature & string analysis |
-| **Systems Programming** | Runtime hooking (trampoline, IAT/PLT, VTable, mid-function) · DLL injection · RAII memory patching · process rebasing |
-| **Libraries & Tools** | Capstone · Zydis · Tkinter · CMake · Frida export · Ghidra export |
-| **Engineering Style** | `std::expected` error handling · zero-dependency & header-only libraries · plugin architectures · exception-free C++ |
+| **Reverse Engineering** | PE binary parsing · MSVC RTTI/COL recovery · vtable & member-offset recovery · disassembly-based verification · pattern & string-xref anchoring · packer & entropy diagnostics |
+| **Binary Formats** | Chunk/container models · archive & VFS layouts · string hashing · compression codecs · audio/video containers · UI-layout & script vocabularies · save/config formats · byte-level toolcraft |
+| **Systems Programming** | Runtime hooking (trampoline, IAT/PLT, VTable, mid-function) · DLL injection & proxying · RAII memory patching · process rebasing · non-destructive interception |
+| **SDK Design** | Two-pillar (data vs. runtime) architecture · three-tier API surfaces · `Result<T>`/`std::expected` error models · header-only runtime · generated-from-data class DBs · `static_assert` invariants |
+| **Diagnostic Tooling** | Static + dynamic analysis hosts · injected read-only inspection · drift detection against shipped catalogues · live-object scanning · no-toolchain reference implementations |
+| **Modding Systems** | Loader architecture (ASI-style) · loose-file shadowing · menu/UI extension · engine-limit taxonomy · memory-pool mechanics · content pipelines |
+| **Graphics / DirectX9** | Present hooks & overlays · device-reset handling · shader injection & HLSL authoring · deferred & forward+ rendering · render-target capture · post-processing pipelines |
+| **Web Platforms** | PHP platform architecture · auth/OAuth · async jobs & scheduled tasks · REST API design · security hardening |
+| **Engineering Style** | Exception-free, RAII-first C++ · zero-dependency & header-only libraries · plugin architectures · reproducible, provenance-tagged research |
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=0:8A2BE2,100:00599C&height=3&section=header"/>
 
@@ -108,7 +116,7 @@ A reverse-engineering platform built to sit alongside **Ghidra, IDA Pro, Binary 
 </td><td valign="top">
 
 **🧰 Research Tooling**
-- C++ header/SDK generation
+- C++ header/SDK output
 - Ghidra & Frida export
 - Architecture reports
 - Plugin packs
@@ -141,13 +149,13 @@ Ships with a **modular plugin architecture** — custom engine signatures, RTTI 
 
 The hooking engine that powers every mod loader in this portfolio — production-grade, `std::expected`-based, and genuinely competitive with (or ahead of) established libraries:
 
-| | VanHooks | MinHook | 
+| | VanHooks | MinHook |
 |---|:---:|:---:|
 | **Platforms** | 🟢 Win/Linux/macOS | Win |
-| **ARM64** | 🟢 ✓ | ✗ | 
+| **ARM64** | 🟢 ✓ | ✗ |
 | **Hook types** | 🟢 Trampoline+IAT+PLT+VTable+Mid | Trampoline |
 | **Error model** | 🟢 `std::expected` | C enum |
-| **RAII lifetime** | 🟢 ✓ | ✗ | 
+| **RAII lifetime** | 🟢 ✓ | ✗ |
 | **Batch groups** | 🟢 ✓ | ✗ |
 
 **➡️ [Explore VanHooks](https://github.com/TsyVM/VanHooks)**
@@ -159,7 +167,7 @@ The hooking engine that powers every mod loader in this portfolio — production
 ![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?style=flat-square&logo=python&logoColor=white)
 ![Capstone](https://img.shields.io/badge/Disasm-Capstone-orange?style=flat-square)
 
-Cross-checks claimed C++ struct layouts against a real compiled binary using a self-contained PE parser + RTTI recovery + disassembly corroboration. Verdicts sorted into `CONFIRMED` / `CONFLICT` / `NO_ANCHOR` / `ERROR` tiers, with entropy-based packer diagnostics and JSON/CSV/`.inl` export.
+Cross-checks claimed C++ struct layouts against a real compiled binary using a self-contained PE parser + RTTI recovery + disassembly corroboration. Verdicts sorted into `CONFIRMED` / `CONFLICT` / `NO_ANCHOR` / `ERROR` tiers, with entropy-based packer diagnostics and JSON/CSV/`.inl` export. Re-derives its own ground truth on every run and reports drift against previously shipped catalogues.
 
 **➡️ [Explore GameFunctionsRecoveryTools](https://github.com/TsyVM/GameFunctionsRecoveryTools)**
 
@@ -170,7 +178,7 @@ Cross-checks claimed C++ struct layouts against a real compiled binary using a s
 <details open>
 <summary><h3 style="display:inline">🍩 The Simpsons: Hit & Run <i>(2003 · Radical/Pure3D Engine)</i></h3></summary>
 
-The most complete ecosystem in the portfolio — analysis, SDK, and end-user tooling working together end-to-end.
+The most complete ecosystem in the portfolio — analysis, SDK, encyclopedia, and end-user tooling working together end-to-end.
 
 <table>
 <tr>
@@ -217,7 +225,7 @@ File-system hook-based mod loader built on VanHooks — numbered load priority, 
 
 **📚 [HnREncyclopedia](https://github.com/TsyVM/HnREncyclopedia)**
 
-Reference documentation cataloguing recovered Hit & Run engine internals — the human-readable companion to DonutsSDK.
+Reference documentation cataloguing recovered Hit & Run engine internals — the human-readable companion to DonutsSDK, organized as a hub with focused deep-dive chapters and confidence markers on every non-obvious claim.
 
 </td>
 </tr>
@@ -258,7 +266,7 @@ Modding SDK for *Most Wanted*, applying the same RTTI-verification methodology a
 
 **📚 [MWEncyclopedia](https://github.com/TsyVM/MWEncyclopedia)**
 
-Reference documentation of *Most Wanted* engine internals.
+Reference documentation of *Most Wanted* engine internals, alongside an in-progress DX9/HLSL rendering-architecture reference covering the engine's shader and deferred-lighting pipeline.
 
 </td>
 </tr>
@@ -272,11 +280,16 @@ Reference documentation of *Most Wanted* engine internals.
 
 ## 🧭 Design Philosophy
 
-- 🔬 **Evidence over assumption** — every claim is RTTI-derived or disassembly-corroborated; unverified data is flagged, never guessed.
-- ⚙️ **Modern, exception-free C++** — `std::expected`/`Result<T>` used consistently across VanHooks and DonutsSDK.
-- 🔒 **Non-destructive by default** — mod loaders redirect assets in memory; analysis tools are strictly read-only.
-- 🤝 **Responsible scope** — single-player/offline use only, no affiliation with original studios, no multiplayer-cheat intent.
-- 🧑‍🔧 **Accessible builds** — every project offers a compiled/CMake path *and* a no-toolchain fallback (precompiled binaries or Python).
+The methodology behind every project in this portfolio, distilled into a few rules I actually hold myself to:
+
+- 🔬 **Evidence over assumption** — every claim is RTTI-derived or disassembly-corroborated. A value with no traceable source doesn't ship; it gets marked `Open` instead of guessed.
+- ⚖️ **Two independent evidence bases** — on-disk data (parsed bytes, asset structure) and compiled code (RTTI, disassembly) are proven separately and cross-checked against each other. Agreement between the two is what makes a claim trustworthy.
+- 📒 **An honest ledger** — every non-trivial deliverable tracks what's `Verified` ✅, what's `Reasoned` 🟡, and what's still `Open` ⏳, reported alongside the work instead of buried in it.
+- 📏 **Measure before you change** — no blind tuning. Read the live state, classify what kind of limit or value you're looking at, then use the lever that actually matches it.
+- 🔁 **If it isn't reproducible, it isn't done** — every finding ships as a tool or script that regenerates the same numbers on a fresh copy of the target, with a no-toolchain fallback where possible.
+- 🔒 **Non-destructive by default** — analysis tooling is strictly read-only; mod loaders redirect assets in memory rather than touching the install.
+- 🤝 **Responsible scope** — single-player/offline use only, no affiliation with original studios, no multiplayer-cheat intent, interoperability framing throughout.
+- 🧑‍🔧 **Accessible builds** — every project ships a compiled/CMake path *and* a no-toolchain fallback, so results are reproducible even without the exact original tooling.
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=rect&color=0:8A2BE2,100:00599C&height=3&section=header"/>
 
@@ -285,7 +298,6 @@ Reference documentation of *Most Wanted* engine internals.
 <div align="center">
 
 <img src="https://github-readme-streak-stats.herokuapp.com/?user=TsyVM&theme=radical&hide_border=true&background=0D1117&ring=8A2BE2&fire=00599C&currStreakLabel=8A2BE2"/>
-
 
 </div>
 
@@ -339,13 +351,6 @@ Reference documentation of *Most Wanted* engine internals.
 <sub>💭 "I do not like Github."</sub>
 
 <br/><br/>
-
-<!--
-  🐍 Optional: live contribution snake animation.
-  To activate: add the Platane/snk GitHub Action to this repo (see note below),
-  then uncomment the line below.
-  <img src="https://raw.githubusercontent.com/TsyVM/TsyVM/output/github-contribution-grid-snake-dark.svg" width="100%"/>
--->
 
 <img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:00599C,100:8A2BE2&height=100&section=footer"/>
 
